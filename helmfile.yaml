@@ -1,0 +1,37 @@
+# https://github.com/helmfile/helmfile
+repositories:
+  - name: minio
+    url: https://charts.min.io/
+  - name: postgresql
+    url: https://charts.bitnami.com/bitnami
+  - name: argo
+    url: https://argoproj.github.io/argo-helm
+releases:
+  - name: platform-storage
+    namespace: storage
+    createNamespace: true
+    chart: ./platform-storage
+    values:
+      - ./platform-storage/values.yaml
+      - ./storage-and-transformations.yaml
+  - name: argo-setup
+    namespace: argo
+    createNamespace: true
+    chart: ./argo-setup-kubernetes
+    values:
+      - ./argo-setup-kubernetes/values.yaml
+      - argo-workflows:
+          namespaceOverride: argo
+          controller:
+            workflowNamespaces:
+              - argo
+    needs:
+      - storage/platform-storage
+  - name: argo
+    namespace: argo
+    createNamespace: true
+    chart: ./argo-kubernetes
+    values:
+      - ./storage-and-transformations.yaml
+    needs:
+      - argo-setup

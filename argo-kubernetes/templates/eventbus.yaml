@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: EventBus
+metadata:
+  name: {{ .Release.Name }}-eventbus
+  namespace: {{ .Release.Namespace }}
+spec:
+  jetstream:
+    version: "latest"
+    replicas: 3
+    persistence:
+      storageClassName: standard
+      accessMode: ReadWriteOnce
+      volumeSize: 10Gi

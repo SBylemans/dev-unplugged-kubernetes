@@ -1,0 +1,40 @@
+
+minio:
+  rootUser: local-access
+  rootPassword: local-secret
+  mode: standalone
+  ingress:
+    enabled: true
+  persistence:
+    size: 10Gi
+  replicas: 1
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "250m"
+    limits:
+      memory: "1Gi"
+      cpu: "500m"
+  service:
+    type: NodePort
+    nodePort: 30090
+  consoleService:
+    type: NodePort
+    nodePort: 30091
+  buckets:
+#    - name: datalake
+#      policy: none
+#      purge: false
+#      versioning: false
+postgresql:
+  auth:
+    username: dataplatform_dba
+    password: dataplatform_dba
+    database: dataplatform
+    enablePostgresUser: true
+    postgresPassword: P0stgr3sP4ssw0rd
+  primary:
+    service:
+      type: NodePort
+      nodePorts:
+        postgresql: 30543
