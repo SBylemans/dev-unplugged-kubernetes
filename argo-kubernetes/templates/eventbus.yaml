@@ -6,7 +6,7 @@ metadata:
 spec:
   jetstream:
     version: "latest"
-    replicas: 3
+    replicas: 1
     persistence:
       storageClassName: standard
       accessMode: ReadWriteOnce

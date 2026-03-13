@@ -28,9 +28,9 @@ minio:
 #      versioning: false
 postgresql:
   auth:
-    username: dataplatform_dba
-    password: dataplatform_dba
-    database: dataplatform
+    username: mission_control_dba
+    password: mission_control_dba
+    database: mission_control
     enablePostgresUser: true
     postgresPassword: P0stgr3sP4ssw0rd
   primary:

@@ -4,7 +4,7 @@ argo-workflows:
     postgresql:
       host: platform-storage-postgresql.storage.svc.cluster.local
       port: 5432
-      database: dataplatform
+      database: mission_control
       tableName: argo_workflows
       userNameSecret:
        name: argo-setup-secrets

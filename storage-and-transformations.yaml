@@ -22,7 +22,7 @@ flows:
           - name: key
             src: notification.0.s3.object.key
     container:
-      image: localhost:5001/dataplatform/unzip
+      image: localhost:5001/mission-control/unzip
       command: [ "python", "/app/unzip_to_minio.py" ]
       args:
         - '--bucket'

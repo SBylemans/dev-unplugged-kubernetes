@@ -1,5 +1,5 @@
 apiVersion: v2
 name: argo
-description: Helm chart for dataplatform Omgeving (argo)
+description: Helm chart for mission control (argo)
 type: application
 version: 1.0.0
