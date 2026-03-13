@@ -11,3 +11,8 @@ spec:
       storageClassName: standard
       accessMode: ReadWriteOnce
       volumeSize: 10Gi
+    streamConfig: |
+      maxMsgs: 100000
+      maxBytes: 1GB
+      maxAge: 72h
+      replicas: 1
