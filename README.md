@@ -1,6 +1,24 @@
 # Kubernetes
 
 # WSL install
+Om argo correct te laten draaien moeten volgende zaken nagekeken en gecorrigeerd worden:
+```bash
+cat /proc/sys/fs/inotify/max_user_watches
+cat /proc/sys/fs/inotify/max_user_instances
+```
+
+Typische defaults die te laag zijn
+- max_user_watches: 8192
+- max_user_instances: 128
+
+Corrigeer door:
+
+```bash
+echo "fs.inotify.max_user_watches=524288" | sudo tee -a /etc/sysctl.conf
+echo "fs.inotify.max_user_instances=512" | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+```
+
 ## Docker
 ```bash
 sudo snap install docker
