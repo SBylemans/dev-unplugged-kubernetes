@@ -1,0 +1,42 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: unzip-
+  namespace: argo
+spec:
+  entrypoint: dag-unzip
+  arguments:
+    parameters:
+      - name: key
+        value: OVERRIDEN
+  templates:
+    - name: container-template
+      container:
+        image: localhost:5001/dataplatform/unzip
+        command: ["python", "/app/unzip_to_minio.py"]
+        args:
+          - --bucket
+          - datalake-test
+          - --zip-source
+          - s3://datalake-test/d6b059a4-cf43-5c1f-80ef-49909ece5f8b.zip
+          - --prefix
+          - raw
+        env:
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: argo-secrets
+                key: accesskey
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: argo-secrets
+                key: secretkey
+          - name: AWS_ENDPOINT_URL
+            value: http://platform-storage-minio.storage.svc.cluster.local:9000
+    - name: dag-unzip
+      dag:
+        tasks:
+          - name: unzip
+            template: container-template

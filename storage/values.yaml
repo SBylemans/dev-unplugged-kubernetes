@@ -1,7 +1,7 @@
 
 minio:
-  rootUser: local-access
-  rootPassword: local-secret
+  rootUser: random-minio-user
+  rootPassword: password-user
   mode: standalone
   ingress:
     enabled: true
@@ -17,23 +17,25 @@ minio:
       cpu: "500m"
   service:
     type: NodePort
-    nodePort: 30090
+    nodePort: 30080
   consoleService:
     type: NodePort
-    nodePort: 30091
+    nodePort: 30081
   buckets:
-#    - name: datalake
-#      policy: none
-#      purge: false
-#      versioning: false
+    - name: space-station
+      policy: none
+      purge: false
+      versioning: false
 postgresql:
   auth:
-    username: mission_control_dba
-    password: mission_control_dba
+    username: p0stgr3s_user
+    password: p0stgr3s_password
     database: mission_control
     enablePostgresUser: true
     postgresPassword: P0stgr3sP4ssw0rd
   primary:
+    persistence:
+      enabled: false
     service:
       type: NodePort
       nodePorts:
