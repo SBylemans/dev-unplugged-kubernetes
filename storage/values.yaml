@@ -21,11 +21,6 @@ minio:
   consoleService:
     type: NodePort
     nodePort: 30081
-  buckets:
-    - name: space-station
-      policy: none
-      purge: false
-      versioning: false
 postgresql:
   auth:
     username: p0stgr3s_user
