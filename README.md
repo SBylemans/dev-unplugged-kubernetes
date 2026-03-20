@@ -63,8 +63,17 @@ With registry:
 ./kind/create-local-cluster.sh
 ```
 
-## Deploy using helmfile
+## Deploy using helm and kubectl
 
 ```bash
-helmfile apply
+mkdir -p <folder>/generated
+helm template -n <namespace> <name> . > <folder>/generated/manifests.yaml
+kubectl apply -f generated/manifests -n <namespace>
 ```
+
+| Folder                | Namespace | Name                     |
+|-----------------------|-----------|--------------------------|
+| storage               | storage   | mission-control-storage  |
+| rest-api-kubernetes   | rest-api  | mission-control-rest-api |
+| argo-setup-kubernetes | argo      |                          |
+| argo-kubernetes       | argo      |                          |
